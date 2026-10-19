@@ -51,7 +51,7 @@ their internal names):
 | `cursorstyle` | choice | Cursor shape |
 | `readonly` | bool | View-only mode (no input, no mouse) |
 | `autocopyselection` | bool | Copy to the clipboard as soon as text is selected |
-| `menulang` | choice | Language of the quick menu (English by default, Russian available) |
+| `menulang` | choice | Language of the quick menu and on-screen messages (English by default, Russian available) |
 | `menupos` | choice | Position of the quick-menu button (corners, sides, or "free") |
 | `menusize` | slider | Size of the quick-menu button in px (0 = automatic, scales with the screen) |
 | `menuopacity` | slider | Opacity of the quick-menu button in percent |
@@ -93,6 +93,7 @@ wallpaper itself.
 
 ## Troubleshooting
 
+- **"No connection to the backend" card on the wallpaper:** it appears after about 3 seconds without a connection and lists the usual causes; it disappears by itself once connected.
 - **Offline although the backend runs:** check the backend log. `rejected Origin "null"`
   means `allowed_origins` lacks `file://`; a failed handshake without that line usually means
   a missing or wrong token (HTTP 401).

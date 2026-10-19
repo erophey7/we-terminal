@@ -1,13 +1,13 @@
 {
   "ui_version": 1,
-  "title": "webterm",
+  "title": "webterminal",
   "type": "web",
   "file": "index.html",
   "preview": "preview.png",
   "contentrating": "Everyone",
   "description": "A live terminal on your desktop. Connects over WebSocket to a webterm backend - set its address in the wallpaper properties.",
   "tags": [
-    "Abstract"
+    "Unspecified"
   ],
   "general": {
     "properties": {

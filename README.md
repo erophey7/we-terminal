@@ -82,7 +82,8 @@ in `localStorage` > defaults.
 | `autohide` | `0` | on | Keep the drawer handle always visible |
 | `kb` | `0` | on | Disable the on-screen keyboard |
 | `kblayouts` | comma list of `en,ru,uk,de,fr,es,it,tr` | `en,ru` | Enabled keyboard layouts (order = order of the Lang key) |
-| `menulang` | `en`, `ru` | `en` | Language of the radial menu (see `i18n.js` to add more) |
+| `menulang` | `en`, `ru` | `en` | Language of the radial menu and on-screen messages (see `i18n.js` to add more) |
+| `status` | `0` | on | Hide the "no connection to the backend" overlay |
 | `menupos` | `top-left`, `top`, `top-right`, `left`, `right`, `bottom-left`, `bottom`, `bottom-right`, `free` | `bottom-right` | Where the radial-menu button sits |
 | `menusize` | px | `0` (auto) | Size of the radial-menu button (0 = scales with the screen width) |
 | `menuopacity` | 10-100 | `78` | Opacity of the radial-menu button, percent |
@@ -114,7 +115,7 @@ example `?bind_middle=paste&bind_back=toggleKeyboard`.
 Overrides use the same names as the table above in camelCase: `wsUrl`, `token`,
 `theme`, `fontFamily`, `fontSize`, `opacity`, `cursorStyle`, `readonly`,
 `enableWebgl`, `enableImages`, `enableKitty`, `keyboardEnabled`, `kbLayouts`,
-`menuLang`, `menuPos`, `menuMove`, `menuSize`, `menuOpacity`, `showUI`, `handleAutoHide`, plus the copy/paste flags.
+`menuLang`, `statusOverlay`, `menuPos`, `menuMove`, `menuSize`, `menuOpacity`, `showUI`, `handleAutoHide`, plus the copy/paste flags.
 
 ### Custom transports
 
@@ -142,7 +143,8 @@ actions.js, bindings.js built-in actions and mouse-button bindings
 radial.js               radial quick-action menu
 keyboard.js, kblayouts.js  on-screen keyboard and its layout tables
 themes.js, fonts.js     themes and fonts
-i18n.js                 radial-menu translations (English by default)
+status.js               "no connection to the backend" overlay
+i18n.js                 translations of the menu and messages (English by default)
 vendor/                 xterm.js, addons, fonts and their licenses
 we-bridge.js            maps Wallpaper Engine properties to startWebterm(); in a plain browser the
                         same index.html starts from URL parameters
