@@ -53,7 +53,7 @@ python -m http.server 8080        # or: npx serve -l 8080 .
 # then open http://localhost:8080/?ws=ws://localhost:3000/pty  (adjust to your backend)
 ```
 
-The simplest setup is the [Go backend](../backend), which embeds a copy of this
+The simplest setup is the [Go backend](../backend) ([prebuilt binaries](https://github.com/erophey7/we-terminal-backend/releases/latest)), which embeds a copy of this
 frontend: run the binary and open <http://localhost:3000>.
 
 The page picks the WebSocket address from `?ws=`, falling back to `/pty` on the

@@ -9,7 +9,8 @@ connected to a webterm backend.
 
 ## Install
 
-1. Start a backend (for example the Go backend from `../backend`). For a local
+1. Start a backend: download a prebuilt binary from the
+   [latest backend release](https://github.com/erophey7/we-terminal-backend/releases/latest) (or build the Go backend from `../backend`). For a local
    setup listen on `127.0.0.1` so nothing else can reach it:
 
    ```yaml
