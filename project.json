@@ -1,0 +1,286 @@
+{
+  "ui_version": 1,
+  "title": "webterm",
+  "type": "web",
+  "file": "index.html",
+  "preview": "preview.png",
+  "contentrating": "Everyone",
+  "description": "A live terminal on your desktop. Connects over WebSocket to a webterm backend - set its address in the wallpaper properties.",
+  "tags": [
+    "Abstract"
+  ],
+  "general": {
+    "properties": {
+      "wsurl": {
+        "order": 0,
+        "text": "Backend address (ws:// or wss://)",
+        "type": "textinput",
+        "value": "ws://localhost:3000/pty"
+      },
+      "token": {
+        "order": 1,
+        "text": "Auth token (if enabled on the backend)",
+        "type": "textinput",
+        "value": ""
+      },
+      "advancedgraphics": {
+        "order": 2,
+        "text": "Advanced graphics (WebGL + Sixel/iTerm2 images)",
+        "type": "bool",
+        "value": false
+      },
+      "theme": {
+        "order": 3,
+        "text": "Theme",
+        "type": "combo",
+        "value": "nebula",
+        "options": [
+          {
+            "label": "Nebula",
+            "value": "nebula"
+          },
+          {
+            "label": "Nord",
+            "value": "nord"
+          },
+          {
+            "label": "Dracula",
+            "value": "dracula"
+          },
+          {
+            "label": "Gruvbox",
+            "value": "gruvbox"
+          },
+          {
+            "label": "Catppuccin Mocha",
+            "value": "catppuccin"
+          }
+        ]
+      },
+      "fontfamily": {
+        "order": 4,
+        "text": "Font",
+        "type": "combo",
+        "value": "jetbrains",
+        "options": [
+          {
+            "label": "JetBrains Mono",
+            "value": "jetbrains"
+          },
+          {
+            "label": "Fira Code",
+            "value": "firacode"
+          },
+          {
+            "label": "IBM Plex Mono",
+            "value": "ibmplex"
+          },
+          {
+            "label": "Source Code Pro",
+            "value": "sourcecodepro"
+          },
+          {
+            "label": "Roboto Mono",
+            "value": "robotomono"
+          },
+          {
+            "label": "Space Mono",
+            "value": "spacemono"
+          },
+          {
+            "label": "System monospace",
+            "value": "system"
+          }
+        ]
+      },
+      "fontsize": {
+        "order": 5,
+        "text": "Font size",
+        "type": "slider",
+        "value": 14,
+        "min": 9,
+        "max": 28,
+        "step": 1
+      },
+      "opacity": {
+        "order": 6,
+        "text": "Background opacity",
+        "type": "slider",
+        "value": 72,
+        "min": 0,
+        "max": 100,
+        "step": 1
+      },
+      "cursorstyle": {
+        "order": 7,
+        "text": "Cursor",
+        "type": "combo",
+        "value": "bar",
+        "options": [
+          {
+            "label": "Bar",
+            "value": "bar"
+          },
+          {
+            "label": "Block",
+            "value": "block"
+          },
+          {
+            "label": "Underline",
+            "value": "underline"
+          }
+        ]
+      },
+      "readonly": {
+        "order": 8,
+        "text": "View-only mode (no input, no mouse)",
+        "type": "bool",
+        "value": false
+      },
+      "autocopyselection": {
+        "order": 9,
+        "text": "Copy to clipboard on mouse selection",
+        "type": "bool",
+        "value": true
+      },
+      "menulang": {
+        "order": 10,
+        "text": "Menu language",
+        "type": "combo",
+        "value": "en",
+        "options": [
+          {
+            "label": "English",
+            "value": "en"
+          },
+          {
+            "label": "Русский",
+            "value": "ru"
+          }
+        ]
+      },
+      "menupos": {
+        "order": 11,
+        "text": "Menu button: position",
+        "type": "combo",
+        "value": "top-right",
+        "options": [
+          {
+            "label": "Top left corner",
+            "value": "top-left"
+          },
+          {
+            "label": "Top center",
+            "value": "top"
+          },
+          {
+            "label": "Top right corner",
+            "value": "top-right"
+          },
+          {
+            "label": "Left side",
+            "value": "left"
+          },
+          {
+            "label": "Right side",
+            "value": "right"
+          },
+          {
+            "label": "Bottom left corner",
+            "value": "bottom-left"
+          },
+          {
+            "label": "Bottom center",
+            "value": "bottom"
+          },
+          {
+            "label": "Bottom right corner",
+            "value": "bottom-right"
+          },
+          {
+            "label": "Free (drag it)",
+            "value": "free"
+          }
+        ]
+      },
+      "menumove": {
+        "order": 12,
+        "text": "Menu button: move mode (only with \"Free\")",
+        "type": "bool",
+        "value": false
+      },
+      "menusize": {
+        "order": 13,
+        "text": "Menu button: size in px (0 = automatic, scales with the screen)",
+        "type": "slider",
+        "value": 0,
+        "min": 0,
+        "max": 160,
+        "step": 2
+      },
+      "menuopacity": {
+        "order": 14,
+        "text": "Menu button: opacity (%)",
+        "type": "slider",
+        "value": 78,
+        "min": 10,
+        "max": 100,
+        "step": 1
+      },
+      "keyboard": {
+        "order": 15,
+        "text": "On-screen keyboard (button in the radial menu)",
+        "type": "bool",
+        "value": true
+      },
+      "kb_en": {
+        "order": 16,
+        "text": "Keyboard layout: English",
+        "type": "bool",
+        "value": true
+      },
+      "kb_ru": {
+        "order": 17,
+        "text": "Keyboard layout: Russian",
+        "type": "bool",
+        "value": true
+      },
+      "kb_uk": {
+        "order": 18,
+        "text": "Keyboard layout: Ukrainian",
+        "type": "bool",
+        "value": false
+      },
+      "kb_de": {
+        "order": 19,
+        "text": "Keyboard layout: German",
+        "type": "bool",
+        "value": false
+      },
+      "kb_fr": {
+        "order": 20,
+        "text": "Keyboard layout: French",
+        "type": "bool",
+        "value": false
+      },
+      "kb_es": {
+        "order": 21,
+        "text": "Keyboard layout: Spanish",
+        "type": "bool",
+        "value": false
+      },
+      "kb_it": {
+        "order": 22,
+        "text": "Keyboard layout: Italian",
+        "type": "bool",
+        "value": false
+      },
+      "kb_tr": {
+        "order": 23,
+        "text": "Keyboard layout: Turkish",
+        "type": "bool",
+        "value": false
+      }
+    }
+  }
+}
