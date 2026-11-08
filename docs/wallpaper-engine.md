@@ -9,6 +9,9 @@ connected to a webterm backend.
 
 ## Install
 
+Update the backend together with the frontend. This frontend requests the `webterm.v2` WebSocket subprotocol;
+an older backend that does not negotiate it will fail the browser's handshake.
+
 1. Start a backend: download a prebuilt binary from the
    [latest backend release](https://github.com/erophey7/we-terminal-backend/releases/latest) (or build the Go backend from `../backend`). For a local
    setup listen on `127.0.0.1` so nothing else can reach it:

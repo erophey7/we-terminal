@@ -88,7 +88,15 @@ in `localStorage` > defaults.
 | `menusize` | px | `0` (auto) | Size of the radial-menu button (0 = scales with the screen width) |
 | `menuopacity` | 10-100 | `78` | Opacity of the radial-menu button, percent |
 | `menumove` | `1` | off | With `menupos=free`: drag the button (position is saved) |
-| `autoCopy`, `copyCtrlC`, `pasteCtrlV`, `copyCtrlShiftC`, `pasteCtrlShiftV`, `rcCopy`, `rcPaste` | `0` | on | Switch individual copy/paste modes off |
+| `autoCopy`, `copyCtrlC`, `pasteCtrlV`, `copyCtrlShiftC`, `pasteCtrlShiftV`, `rcCopy`, `rcPaste`, `bracketedPaste` | `0` | on | Switch individual copy/paste modes off. `bracketedPaste=0` sends pasted text as typed instead of wrapping it in bracketed-paste markers (bash highlights a bracketed paste until the next key). The same switches are in the settings drawer under "Copy & paste" and are remembered |
+| `contrast` | `1`, `3`, `4.5`, `7` | `4.5` | Minimum text contrast (1 = show the exact colors programs ask for). See [themes](docs/themes.md) |
+| `bg` | URL | none | Background image shown under the terminal. Without it, the settings drawer has "Background image": pick a file (kept in this browser's IndexedDB), then set image opacity, blur and terminal opacity |
+| `bgOpacity`, `bgBlur`, `termAlpha` | 0-100, 0-40 px, 0-100 | `60`, `0`, `75` | Image opacity, image blur, terminal background opacity (only while an image is set) |
+| `nerd` | `0` | on | Turn the Nerd Font icon set off (it is only downloaded when an icon is first drawn) |
+| `radial` | `0` | on | Hide the radial menu (it exists for Wallpaper Engine, where only the mouse position and left button reach the page) |
+| `handleIntro` | ms | `0` | Show the settings handle at full opacity for this long after opening, so people can find it |
+
+When a program in the terminal turns on mouse reporting (btop, mc, vim with `mouse=a`, tmux), it owns the mouse: the bindings stay out of the way. Hold `Shift` to use them anyway (the usual terminal convention). `Ctrl+F` opens the search drawer only on the normal screen; inside full-screen programs use `Ctrl+Shift+F`.
 
 Mouse-button bindings (for browsers, where all buttons exist) can be set with
 `bind_middle`, `bind_right`, `bind_back`, `bind_forward` (and `..Mod` variants,
@@ -115,7 +123,7 @@ example `?bind_middle=paste&bind_back=toggleKeyboard`.
 Overrides use the same names as the table above in camelCase: `wsUrl`, `token`,
 `theme`, `fontFamily`, `fontSize`, `opacity`, `cursorStyle`, `readonly`,
 `enableWebgl`, `enableImages`, `enableKitty`, `keyboardEnabled`, `kbLayouts`,
-`menuLang`, `statusOverlay`, `menuPos`, `menuMove`, `menuSize`, `menuOpacity`, `showUI`, `handleAutoHide`, plus the copy/paste flags.
+`menuLang`, `statusOverlay`, `menuPos`, `menuMove`, `menuSize`, `menuOpacity`, `showUI`, `handleAutoHide`, `radialEnabled`, `handleIntroMs`, plus the copy/paste flags (including `bracketedPaste`).
 
 ### Custom transports
 
@@ -148,7 +156,6 @@ i18n.js                 translations of the menu and messages (English by defaul
 vendor/                 xterm.js, addons, fonts and their licenses
 we-bridge.js            maps Wallpaper Engine properties to startWebterm(); in a plain browser the
                         same index.html starts from URL parameters
-we-bridge.js            maps Wallpaper Engine properties to startWebterm()
 project.json            Wallpaper Engine project definition and properties
 preview.png             wallpaper preview
 docs/                   protocol and Wallpaper Engine guide
@@ -156,15 +163,34 @@ docs/                   protocol and Wallpaper Engine guide
 
 ## Development
 
-There is nothing to build. Run the unit tests with Node 18+:
-
-```sh
-node kitty.test.mjs      # Kitty APC stream splitting
-node layouts.test.mjs    # keyboard layout tables
-node i18n.test.mjs       # translation tables
-```
+There is nothing to build: the repository contains the ready-to-use frontend assets.
+Serve JavaScript modules (`.js` and `.mjs`) with a JavaScript MIME type such as `text/javascript`.
+Some Windows static servers return `text/plain` for `.mjs`, which prevents the frontend from starting.
 
 ## License
 
 See the `LICENSE` file. Third-party notices:
 [THIRD_PARTY_LICENSES.md](THIRD_PARTY_LICENSES.md).
+
+## Settings handle
+
+Press and hold the settings handle (about 0.35 s) to move it. On release it snaps to the nearest window edge, never to
+a corner, and the position is remembered. A short click still opens the drawer.
+
+## Languages
+
+The radial menu's **Reset saved settings** action opens an in-page confirmation that can be operated with the left
+mouse button in Wallpaper Engine. Confirming clears saved appearance overrides and restores the wallpaper's property
+values; closing the dialog leaves the saved settings intact.
+
+The settings drawer and the Proxmox VE console page are translated into every language Proxmox VE offers (Arabic,
+Bulgarian, Catalan, Chinese Simplified/Traditional, Croatian, Czech, Danish, Dutch, English, Basque, Persian, French,
+Georgian, German, Hebrew, Italian, Japanese, Korean, Norwegian Bokmål/Nynorsk, Polish, Portuguese (Brazil), Russian,
+Slovenian, Spanish, Swedish, Turkish, Ukrainian). The language codes are the same as in Proxmox VE. In the PVE console
+the language follows Proxmox VE itself: the `PVELangCookie` cookie (set when you pick a language in the PVE login
+or user menu), then the server default (`Proxmox.defaultLang` of the main window), then the browser language.
+`?lang=<code>` (PVE page) or `?menulang=<code>` forces one. Arabic, Persian and Hebrew mirror the drawer.
+
+The translations are machine-assisted; corrections are welcome as pull requests to `frontend/lang/<code>.js`.
+The settings drawer, radial menu and connection status overlay are translated into all 29 supported languages.
+Missing strings fall back to English.

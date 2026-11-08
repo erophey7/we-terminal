@@ -5,63 +5,50 @@
   "file": "index.html",
   "preview": "preview.png",
   "contentrating": "Everyone",
-  "description": "A live terminal on your desktop. Connects over WebSocket to a webterm backend - set its address in the wallpaper properties.",
+  "description": "[h1]WEB Terminal — a live terminal as your wallpaper[/h1]\n\nA real, working terminal on your desktop: run btop, htop, tmux, vim, a build log, an AI coding agent or a server console and keep it in view all day. It is not a recording or a fake, it is a live shell.\n\n[b]IMPORTANT: this wallpaper needs its own small backend running on a machine you control.[/b] Wallpaper Engine can't start shell sessions by itself, so a tiny open-source program (the backend) runs the shell and the wallpaper connects to it. Without it you will see a \"No connection to the backend\" card. Setup takes about two minutes, see below.\n\n[h2]What it is good for[/h2]\n[list]\n[*] A living dashboard: btop, htop, glances, logs, tail -f, watch, docker stats\n[*] Watching long builds, tests, deployments or AI agents work while you do something else\n[*] A server console: connect the backend on a home server, VM or Raspberry Pi and see it on your desktop\n[*] A beautiful, themed terminal as a backdrop for streams and screenshots\n[/list]\n\n[h2]Features[/h2]\n[list]\n[*] Real pty shell (bash, zsh, fish, PowerShell, WSL, anything you configure) via xterm.js\n[*] Images in the terminal: Kitty graphics protocol (kitten icat, chafa and similar)\n[*] Works with the left mouse button only: a radial quick menu (copy, paste, clear, Ctrl+C, scroll, font size, theme, background opacity, keyboard) and a built-in on-screen keyboard with several layouts\n[*] Several colour themes, bundled fonts (JetBrains Mono and more), adjustable font size and background opacity\n[*] Menu button position, size and opacity, menu language (29 languages) are configurable\n[*] Shows a helpful message with the most common causes when the backend is unreachable\n[*] Fully local: no external requests, all fonts and libraries are bundled\n[/list]\n\n[h2]Quick setup[/h2]\n[olist]\n[*] Get the backend: download the build for your system (Windows, Linux, macOS; x64 and ARM64) from [url=https://github.com/erophey7/we-terminal-backend/releases/latest]the latest release[/url]. Source code and build instructions: [url=https://github.com/erophey7/we-terminal-backend]github.com/erophey7/we-terminal-backend[/url]\n[*] Create webterm.yml next to it (see config.example.yml in the repository). Minimal example:\n[code]\nlisten:\n  ip: 127.0.0.1\n  port: 3000\nauth:\n  enabled: true\n  token: \"a-long-random-secret\"\naccess:\n  allowed_origins: [\"file://\"]\n[/code]\n[*] Start the backend from the folder that contains webterm.yml (it is read from the current directory; or pass the path as the first argument):\n[code]\n# Windows (PowerShell; in cmd drop the \"./\")\n./webterm-windows-amd64.exe\n\n# Linux\nchmod +x webterm-linux-amd64\n./webterm-linux-amd64\n\n# macOS (Apple Silicon)\nchmod +x webterm-darwin-arm64\n./webterm-darwin-arm64\n\n# custom config path\n./webterm-linux-amd64 /path/to/webterm.yml\n[/code]\nThe startup log shows the listen address and the allowed origins; leave the window open while you use the wallpaper. Windows SmartScreen / macOS Gatekeeper may warn because the binaries are not code-signed. To start it automatically with your system, see the deployment guide in the backend repository.\n[*] In the wallpaper properties set the backend address (default ws://localhost:3000/pty) and the same token.\n[*] Click the menu button in the corner of the wallpaper for quick actions.\n[/olist]\nDetailed guide (including configuring a shell, WSL, Linux/macOS, running as a service): see the repositories below.\n\n[h2]Security — please read[/h2]\nThe backend gives access to a shell. Keep it bound to 127.0.0.1 (or a trusted LAN), always set a token, and never expose it to the internet. The wallpaper itself never stores anything outside Wallpaper Engine's own settings.\n\n[h2]Source code and licenses[/h2]\n[list]\n[*] Wallpaper (this project): [url=https://github.com/erophey7/we-terminal]github.com/erophey7/we-terminal[/url]\n[*] Backend: [url=https://github.com/erophey7/we-terminal-backend]github.com/erophey7/we-terminal-backend[/url]\n[*] Both are open source under permissive licences (see LICENSE in each repository). Bundled components: xterm.js and its addons (MIT) and fonts (SIL OFL 1.1); the full list is in THIRD_PARTY_LICENSES.md and vendor/licenses/ inside the wallpaper folder.\n[/list]\n\nIssues and suggestions are welcome on GitHub.",
   "tags": [
     "Unspecified"
   ],
+  "version": 1,
   "general": {
     "properties": {
-      "wsurl": {
-        "order": 0,
-        "text": "Backend address (ws:// or wss://)",
-        "type": "textinput",
-        "value": "ws://localhost:3000/pty"
-      },
-      "token": {
-        "order": 1,
-        "text": "Auth token (if enabled on the backend)",
-        "type": "textinput",
-        "value": ""
-      },
       "advancedgraphics": {
-        "order": 2,
+        "index": 3,
+        "order": 103,
         "text": "Advanced graphics (WebGL + Sixel/iTerm2 images)",
         "type": "bool",
         "value": false
       },
-      "theme": {
-        "order": 3,
-        "text": "Theme",
-        "type": "combo",
-        "value": "nebula",
+      "autocopyselection": {
+        "index": 13,
+        "order": 113,
+        "text": "Copy to clipboard on mouse selection",
+        "type": "bool",
+        "value": true
+      },
+      "cursorstyle": {
+        "index": 8,
         "options": [
           {
-            "label": "Nebula",
-            "value": "nebula"
+            "label": "Bar",
+            "value": "bar"
           },
           {
-            "label": "Nord",
-            "value": "nord"
+            "label": "Block",
+            "value": "block"
           },
           {
-            "label": "Dracula",
-            "value": "dracula"
-          },
-          {
-            "label": "Gruvbox",
-            "value": "gruvbox"
-          },
-          {
-            "label": "Catppuccin Mocha",
-            "value": "catppuccin"
+            "label": "Underline",
+            "value": "underline"
           }
-        ]
+        ],
+        "order": 108,
+        "text": "Cursor",
+        "type": "combo",
+        "value": "bar"
       },
       "fontfamily": {
-        "order": 4,
-        "text": "Font",
-        "type": "combo",
-        "value": "jetbrains",
+        "index": 5,
         "options": [
           {
             "label": "JetBrains Mono",
@@ -91,63 +78,95 @@
             "label": "System monospace",
             "value": "system"
           }
-        ]
+        ],
+        "order": 105,
+        "text": "Font",
+        "type": "combo",
+        "value": "jetbrains"
       },
       "fontsize": {
-        "order": 5,
+        "index": 6,
+        "max": 28,
+        "min": 9,
+        "order": 106,
+        "step": 1,
         "text": "Font size",
         "type": "slider",
-        "value": 14,
-        "min": 9,
-        "max": 28,
-        "step": 1
+        "value": 14
       },
-      "opacity": {
-        "order": 6,
-        "text": "Background opacity",
-        "type": "slider",
-        "value": 72,
-        "min": 0,
-        "max": 100,
-        "step": 1
-      },
-      "cursorstyle": {
-        "order": 7,
-        "text": "Cursor",
-        "type": "combo",
-        "value": "bar",
-        "options": [
-          {
-            "label": "Bar",
-            "value": "bar"
-          },
-          {
-            "label": "Block",
-            "value": "block"
-          },
-          {
-            "label": "Underline",
-            "value": "underline"
-          }
-        ]
-      },
-      "readonly": {
-        "order": 8,
-        "text": "View-only mode (no input, no mouse)",
+      "kb_de": {
+        "index": 18,
+        "order": 118,
+        "text": "Keyboard layout: German",
         "type": "bool",
-        "value": false
+        "value": false,
+        "condition": "keyboard.value == true"
       },
-      "autocopyselection": {
-        "order": 9,
-        "text": "Copy to clipboard on mouse selection",
+      "kb_en": {
+        "index": 15,
+        "order": 115,
+        "text": "Keyboard layout: English",
+        "type": "bool",
+        "value": true,
+        "condition": "keyboard.value == true"
+      },
+      "kb_es": {
+        "index": 20,
+        "order": 120,
+        "text": "Keyboard layout: Spanish",
+        "type": "bool",
+        "value": false,
+        "condition": "keyboard.value == true"
+      },
+      "kb_fr": {
+        "index": 19,
+        "order": 119,
+        "text": "Keyboard layout: French",
+        "type": "bool",
+        "value": false,
+        "condition": "keyboard.value == true"
+      },
+      "kb_it": {
+        "index": 21,
+        "order": 121,
+        "text": "Keyboard layout: Italian",
+        "type": "bool",
+        "value": false,
+        "condition": "keyboard.value == true"
+      },
+      "kb_ru": {
+        "index": 16,
+        "order": 116,
+        "text": "Keyboard layout: Russian",
+        "type": "bool",
+        "value": true,
+        "condition": "keyboard.value == true"
+      },
+      "kb_tr": {
+        "index": 22,
+        "order": 122,
+        "text": "Keyboard layout: Turkish",
+        "type": "bool",
+        "value": false,
+        "condition": "keyboard.value == true"
+      },
+      "kb_uk": {
+        "index": 17,
+        "order": 117,
+        "text": "Keyboard layout: Ukrainian",
+        "type": "bool",
+        "value": false,
+        "condition": "keyboard.value == true"
+      },
+      "keyboard": {
+        "index": 14,
+        "order": 114,
+        "text": "On-screen keyboard (button in the radial menu)",
         "type": "bool",
         "value": true
       },
       "menulang": {
-        "order": 10,
-        "text": "Menu language",
-        "type": "combo",
-        "value": "en",
+        "index": 24,
         "options": [
           {
             "label": "English",
@@ -156,14 +175,155 @@
           {
             "label": "Русский",
             "value": "ru"
+          },
+          {
+            "label": "العربية",
+            "value": "ar"
+          },
+          {
+            "label": "Български",
+            "value": "bg"
+          },
+          {
+            "label": "Català",
+            "value": "ca"
+          },
+          {
+            "label": "Čeština",
+            "value": "cs"
+          },
+          {
+            "label": "Dansk",
+            "value": "da"
+          },
+          {
+            "label": "Deutsch",
+            "value": "de"
+          },
+          {
+            "label": "Español",
+            "value": "es"
+          },
+          {
+            "label": "Euskara",
+            "value": "eu"
+          },
+          {
+            "label": "فارسی",
+            "value": "fa"
+          },
+          {
+            "label": "Français",
+            "value": "fr"
+          },
+          {
+            "label": "עברית",
+            "value": "he"
+          },
+          {
+            "label": "Hrvatski",
+            "value": "hr"
+          },
+          {
+            "label": "Italiano",
+            "value": "it"
+          },
+          {
+            "label": "日本語",
+            "value": "ja"
+          },
+          {
+            "label": "ქართული",
+            "value": "ka"
+          },
+          {
+            "label": "한국어",
+            "value": "ko"
+          },
+          {
+            "label": "Norsk bokmål",
+            "value": "nb"
+          },
+          {
+            "label": "Nederlands",
+            "value": "nl"
+          },
+          {
+            "label": "Nynorsk",
+            "value": "nn"
+          },
+          {
+            "label": "Polski",
+            "value": "pl"
+          },
+          {
+            "label": "Português (Brasil)",
+            "value": "pt_BR"
+          },
+          {
+            "label": "Slovenščina",
+            "value": "sl"
+          },
+          {
+            "label": "Svenska",
+            "value": "sv"
+          },
+          {
+            "label": "Türkçe",
+            "value": "tr"
+          },
+          {
+            "label": "Українська",
+            "value": "ukr"
+          },
+          {
+            "label": "中文（简体）",
+            "value": "zh_CN"
+          },
+          {
+            "label": "中文（繁體）",
+            "value": "zh_TW"
           }
-        ]
+        ],
+        "order": 124,
+        "text": "Menu language",
+        "type": "combo",
+        "value": "en"
+      },
+      "menumove": {
+        "index": 26,
+        "order": 126,
+        "text": "Menu button: move mode (only with \"Free\")",
+        "type": "bool",
+        "value": false,
+        "condition": "menupos.value == \"free\""
+      },
+      "menuopacity": {
+        "index": 28,
+        "max": 100,
+        "min": 10,
+        "order": 128,
+        "step": 1,
+        "text": "Menu button: opacity (%)",
+        "type": "slider",
+        "value": 78
+      },
+      "kittygraphics": {
+        "index": 10,
+        "order": 110,
+        "text": "Kitty graphics protocol (terminal images)",
+        "type": "bool",
+        "value": true
+      },
+      "nerdsymbols": {
+        "index": 11,
+        "order": 111,
+        "text": "Nerd Font icons",
+        "type": "bool",
+        "value": true
       },
       "menupos": {
-        "order": 11,
-        "text": "Menu button: position",
-        "type": "combo",
-        "value": "top-right",
+        "index": 25,
         "options": [
           {
             "label": "Top left corner",
@@ -201,85 +361,113 @@
             "label": "Free (drag it)",
             "value": "free"
           }
-        ]
-      },
-      "menumove": {
-        "order": 12,
-        "text": "Menu button: move mode (only with \"Free\")",
-        "type": "bool",
-        "value": false
+        ],
+        "order": 125,
+        "text": "Menu button: position",
+        "type": "combo",
+        "value": "top-right"
       },
       "menusize": {
-        "order": 13,
+        "index": 27,
+        "max": 160,
+        "min": 0,
+        "order": 127,
+        "step": 2,
         "text": "Menu button: size in px (0 = automatic, scales with the screen)",
         "type": "slider",
-        "value": 0,
-        "min": 0,
-        "max": 160,
-        "step": 2
+        "value": 0
       },
-      "menuopacity": {
-        "order": 14,
-        "text": "Menu button: opacity (%)",
-        "type": "slider",
-        "value": 78,
-        "min": 10,
+      "opacity": {
+        "index": 7,
         "max": 100,
-        "step": 1
+        "min": 0,
+        "order": 107,
+        "step": 1,
+        "text": "Background opacity",
+        "type": "slider",
+        "value": 72
       },
-      "keyboard": {
-        "order": 15,
-        "text": "On-screen keyboard (button in the radial menu)",
-        "type": "bool",
-        "value": true
-      },
-      "kb_en": {
-        "order": 16,
-        "text": "Keyboard layout: English",
-        "type": "bool",
-        "value": true
-      },
-      "kb_ru": {
-        "order": 17,
-        "text": "Keyboard layout: Russian",
-        "type": "bool",
-        "value": true
-      },
-      "kb_uk": {
-        "order": 18,
-        "text": "Keyboard layout: Ukrainian",
+      "readonly": {
+        "index": 9,
+        "order": 109,
+        "text": "View-only mode (no input, no mouse)",
         "type": "bool",
         "value": false
       },
-      "kb_de": {
-        "order": 19,
-        "text": "Keyboard layout: German",
-        "type": "bool",
-        "value": false
+      "schemecolor": {
+        "order": 0,
+        "text": "ui_browse_properties_scheme_color",
+        "type": "color",
+        "value": "0 0 0"
       },
-      "kb_fr": {
-        "order": 20,
-        "text": "Keyboard layout: French",
-        "type": "bool",
-        "value": false
+      "theme": {
+        "index": 4,
+        "options": [
+          {
+            "label": "Nebula",
+            "value": "nebula"
+          },
+          {
+            "label": "Nord",
+            "value": "nord"
+          },
+          {
+            "label": "Dracula",
+            "value": "dracula"
+          },
+          {
+            "label": "Gruvbox",
+            "value": "gruvbox"
+          },
+          {
+            "label": "Catppuccin Mocha",
+            "value": "catppuccin"
+          },
+          {
+            "label": "Campbell (Windows Terminal)",
+            "value": "campbell"
+          },
+          {
+            "label": "Clear (original colors)",
+            "value": "clear"
+          }
+        ],
+        "order": 104,
+        "text": "Theme",
+        "type": "combo",
+        "value": "nebula"
       },
-      "kb_es": {
-        "order": 21,
-        "text": "Keyboard layout: Spanish",
-        "type": "bool",
-        "value": false
+      "token": {
+        "index": 1,
+        "order": 101,
+        "text": "Auth token (if enabled on the backend)",
+        "type": "textinput",
+        "value": ""
       },
-      "kb_it": {
-        "order": 22,
-        "text": "Keyboard layout: Italian",
-        "type": "bool",
-        "value": false
+      "wsurl": {
+        "index": 0,
+        "order": 100,
+        "text": "Backend address (ws:// or wss://)",
+        "type": "textinput",
+        "value": "ws://localhost:3000/pty"
       },
-      "kb_tr": {
-        "order": 23,
-        "text": "Keyboard layout: Turkish",
-        "type": "bool",
-        "value": false
+      "group_appearance": {
+        "index": 2,
+        "order": 102,
+        "text": "Appearance",
+        "type": "group"
+      },
+      "group_input": {
+        "index": 12,
+        "order": 112,
+        "text": "Input",
+        "type": "group"
+      },
+      "group_quickmenu": {
+        "index": 23,
+        "order": 123,
+        "text": "Quick menu",
+        "type": "group"
       }
     }
   }
