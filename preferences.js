@@ -1,7 +1,7 @@
 export const SETTINGS_STORAGE_KEY = 'webterm:settings';
 export const MENU_POSITION_STORAGE_KEY = 'webterm:menubtn';
 
-// Browser preferences intentionally override Wallpaper Engine property defaults.
+// Saved appearance is a fallback for settings the host has not supplied.
 const SAVED_KEYS = {
   theme: 'theme',
   fontFamily: 'fontFamily',
@@ -15,17 +15,18 @@ const SAVED_KEYS = {
   menuMove: 'menuMove',
 };
 
-export function applySavedPreferences(config, storage = globalThis.localStorage) {
+export function applySavedPreferences(config, storage = globalThis.localStorage, { hostKeys = [] } = {}) {
   let saved;
   try { saved = JSON.parse(storage?.getItem(SETTINGS_STORAGE_KEY) || '{}'); }
   catch { return config; }
   if (!saved || typeof saved !== 'object' || Array.isArray(saved)) return config;
 
   const result = { ...config };
+  const supplied = new Set(hostKeys);
   for (const [setting, key] of Object.entries(SAVED_KEYS)) {
-    if (Object.hasOwn(saved, key)) result[setting] = saved[key];
+    if (!supplied.has(setting) && Object.hasOwn(saved, key)) result[setting] = saved[key];
   }
-  if (Object.hasOwn(saved.flags || {}, 'nerdSymbols')) result.nerdSymbols = saved.flags.nerdSymbols;
+  if (!supplied.has('nerdSymbols') && Object.hasOwn(saved.flags || {}, 'nerdSymbols')) result.nerdSymbols = saved.flags.nerdSymbols;
   return result;
 }
 

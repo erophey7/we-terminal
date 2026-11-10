@@ -56,6 +56,11 @@ let lastCfg = null;
 // только изменённые свойства. Копим всё, иначе непришедшие поля сбросились бы
 // в значения по умолчанию.
 const allProps = {};
+const HOST_PREFERENCE_KEYS = {
+  theme: 'theme', fontfamily: 'fontFamily', fontsize: 'fontSize', opacity: 'opacity',
+  cursorstyle: 'cursorStyle', menulang: 'menuLang', menusize: 'menuSize',
+  menuopacity: 'menuOpacity', menupos: 'menuPos', menumove: 'menuMove', nerdsymbols: 'nerdSymbols',
+};
 
 function resetSavedPreferences() {
   if (!clearSavedPreferences()) return;
@@ -67,7 +72,9 @@ function resetSavedPreferences() {
 window.wallpaperPropertyListener = {
   applyUserProperties(props) {
     Object.assign(allProps, props);
-    const cfg = applySavedPreferences(cfgFromProps(allProps));
+    // Explicit WE properties win over old local overrides, including on first startup.
+    const hostKeys = Object.keys(allProps).map((key) => HOST_PREFERENCE_KEYS[key]).filter(Boolean);
+    const cfg = applySavedPreferences(cfgFromProps(allProps), undefined, { hostKeys });
 
     if (!webterm) {
       lastCfg = cfg;

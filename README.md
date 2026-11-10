@@ -182,6 +182,8 @@ a corner, and the position is remembered. A short click still opens the drawer.
 The radial menu's **Reset saved settings** action opens an in-page confirmation that can be operated with the left
 mouse button in Wallpaper Engine. Confirming clears saved appearance overrides and restores the wallpaper's property
 values; closing the dialog leaves the saved settings intact.
+Explicit Wallpaper Engine properties take priority over saved appearance values on startup and subsequent property
+updates. Saved values are used only for appearance settings that Wallpaper Engine has not supplied.
 
 The settings drawer and the Proxmox VE console page are translated into every language Proxmox VE offers (Arabic,
 Bulgarian, Catalan, Chinese Simplified/Traditional, Croatian, Czech, Danish, Dutch, English, Basque, Persian, French,
